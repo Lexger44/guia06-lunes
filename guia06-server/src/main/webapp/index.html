@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+    <head>
+ <script type = "text/javascript">
+            var ws;
+            function WebSocketTest() {
+                ws = new WebSocket("ws://localhost:8080/guia06-server/genero");
+                console.log("Connection is open...");
+                ws.onmessage = function (evt) {
+                    var received_msg = evt.data;
+                    console.log("Message is received...");
+                    console.log(received_msg);
+                    document.getElementById("jsonLabel").innerHTML = received_msg;
+                };
+
+                ws.onclose = function () {
+                    console.log("Connection is closed...");
+                };
+            }
+            function EnviarMensaje() {
+                ws.send("0");
+            }
+
+            function BorrarMensaje() {
+                document.getElementById("jsonLabel").innerHTML = "--";
+                console.log("Messages delete...");
+            }
+        </script>
+
+    </head>
+    <body>
+               <h1>Tester de mensajes</h1>
+        <div id = "testMessages">
+            <input type="button" value="Enviar Mensaje"  onclick="EnviarMensaje()"/>
+            <input type="button" value="Borrar Mensaje"  onclick="BorrarMensaje()"/>
+            <label id="jsonLabel">--</label><br />
+        </div>
+    </body>
+</html>
